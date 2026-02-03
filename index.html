@@ -3,10 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Romance Bracket</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>❤️</text></svg>">
+    <title>The Romance Bracket | Co–Star Style</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✨</text></svg>">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Crimson+Text:wght@400;600&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap');
+        :root {
+            --bg-dark: #121212;
+            --bg-card: rgba(20, 20, 20, 0.8);
+            --text-light: #f5f5f5;
+            --text-dim: #b0b0b0;
+            --accent-gold: #d4af37;
+            --accent-purple: rgba(112, 76, 182, 0.3);
+            --border-radius: 12px;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            --transition: all 0.3s ease;
+        }
 
         * {
             margin: 0;
@@ -15,570 +26,505 @@
         }
 
         body {
-            font-family: 'EB Garamond', 'Garamond', serif;
-            background: #d4b896;
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-light);
             min-height: 100vh;
-            padding: 40px 20px;
-            color: #2a1810;
+            padding: 20px;
+            line-height: 1.6;
         }
 
         .container {
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 0 auto;
+            padding: 20px;
         }
 
+        /* Top Navigation */
+        .top-nav {
+            display: flex;
+            justify-content: space-around;
+            background: rgba(30, 30, 30, 0.9);
+            padding: 15px;
+            border-bottom: 1px solid var(--accent-purple);
+            margin-bottom: 30px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .top-nav a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 5px 10px;
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+
+        .top-nav a.active {
+            border-bottom: 2px solid var(--accent-gold);
+            color: var(--accent-gold);
+        }
+
+        /* Header */
         header {
             text-align: center;
-            color: #2a1810;
-            margin-bottom: 40px;
-            position: relative;
-            padding: 60px 20px 40px;
-            background: linear-gradient(to bottom, rgba(249, 243, 232, 0.95), rgba(249, 243, 232, 1)), 
-                        url('lisbon.webp');
-            background-size: cover;
-            background-position: center;
-            border-bottom: 2px solid #8b6f47;
-        }
-
-        header h1, header .subtitle {
-            text-shadow: 0 1px 3px rgba(255, 255, 255, 0.9);
-            background: rgba(249, 243, 232, 0.85);
-            display: inline-block;
-            padding: 8px 20px;
-            border-radius: 2px;
+            margin-bottom: 30px;
         }
 
         header h1 {
-            margin-bottom: 15px;
-        }
-
-        h1 {
             font-family: 'Crimson Text', serif;
-            font-size: 2.8em;
-            margin-bottom: 8px;
-            font-weight: 600;
+            font-size: 2.2em;
+            margin-bottom: 10px;
+            color: var(--text-light);
             letter-spacing: 1px;
         }
 
-        .subtitle {
-            font-size: 1.1em;
-            opacity: 0.8;
+        header .subtitle {
             font-style: italic;
-            letter-spacing: 0.5px;
+            color: var(--text-dim);
+            font-size: 1.1em;
         }
 
-        .bracket-container {
-            background: #f9f3e8;
-            padding: 40px 30px;
+        /* Instructions */
+        .instructions {
+            text-align: center;
+            color: var(--text-dim);
             margin-bottom: 30px;
-            border: 3px double #8b6f47;
-            box-shadow: 
-                0 4px 6px rgba(0,0,0,0.1),
-                inset 0 0 100px rgba(0,0,0,0.02);
-            position: relative;
+            font-size: 0.9em;
+            font-style: italic;
         }
 
-        .bracket-container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                repeating-linear-gradient(
-                    0deg,
-                    transparent,
-                    transparent 24px,
-                    rgba(139, 111, 71, 0.03) 24px,
-                    rgba(139, 111, 71, 0.03) 25px
-                );
-            pointer-events: none;
-        }
-
-        .bracket {
+        /* Card Layout */
+        .bracket-container {
             display: flex;
-            justify-content: space-between;
-            max-width: 1100px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 1;
+            flex-direction: column;
+            gap: 20px;
+            margin-bottom: 40px;
         }
 
         .round {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-around;
-            flex: 1;
-            position: relative;
+            margin-bottom: 30px;
         }
 
         .round h3 {
             text-align: center;
-            color: #2a1810;
-            margin-bottom: 25px;
-            font-size: 0.9em;
+            color: var(--accent-gold);
+            margin-bottom: 20px;
+            font-family: 'Crimson Text', serif;
+            font-size: 1.2em;
+            letter-spacing: 2px;
             text-transform: lowercase;
-            letter-spacing: 3px;
-            font-weight: 500;
-            border-bottom: 1px solid #2a1810;
-            padding-bottom: 8px;
-            font-style: italic;
         }
 
-        .matchup-wrapper {
+        .matchup-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--accent-purple);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(10px);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(112, 76, 182, 0.2);
+            border-color: var(--accent-gold);
+        }
+
+        .card.selected {
+            border-color: var(--accent-gold);
+            background: rgba(112, 76, 182, 0.1);
+        }
+
+        .card-header {
             display: flex;
             align-items: center;
-            position: relative;
+            margin-bottom: 10px;
         }
 
-        .matchup {
-            background: #fefdfb;
-            border: 1px solid #8b6f47;
-            flex: 1;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            position: relative;
-            box-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        .zodiac-icon {
+            font-size: 1.5em;
+            margin-right: 10px;
+            color: var(--accent-gold);
         }
 
-        .matchup:hover {
-            box-shadow: 3px 3px 6px rgba(0,0,0,0.15);
+        .card-title {
+            font-family: 'Crimson Text', serif;
+            font-size: 1.1em;
+            color: var(--text-light);
+            letter-spacing: 0.5px;
+        }
+
+        .card-description {
+            color: var(--text-dim);
+            font-size: 0.9em;
+            margin-bottom: 15px;
+            line-height: 1.5;
         }
 
         .contestant {
-            background: #fefdfb;
-            padding: 14px 12px;
-            border-bottom: 1px dashed #c4b5a0;
-            transition: all 0.2s ease;
-            position: relative;
-            font-size: 0.95em;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            margin: 8px 0;
+            border-radius: 8px;
+            background: rgba(30, 30, 30, 0.5);
+            transition: var(--transition);
         }
 
-        .contestant::before {
-            content: '☐';
-            position: absolute;
-            left: -18px;
-            top: 14px;
-            font-size: 1.1em;
-            color: #8b6f47;
-        }
-
-        .contestant.winner::before {
-            content: '☑';
-            color: #8b6f47;
-        }
-
-        .contestant:last-child {
-            border-bottom: none;
+        .contestant:hover {
+            background: rgba(112, 76, 182, 0.2);
         }
 
         .contestant.selected {
-            background: #fefdfb;
+            background: rgba(112, 76, 182, 0.3);
+            border: 1px solid var(--accent-gold);
         }
 
-        .contestant.winner {
-            background: #faf6ed;
+        .contestant-info {
+            display: flex;
+            align-items: center;
         }
 
         .seed {
-            display: inline-block;
-            background: none;
-            color: #2a1810;
-            padding: 0;
-            font-size: 0.85em;
-            font-weight: 500;
-            margin-right: 8px;
-            font-family: 'EB Garamond', serif;
-            border: 1px solid #2a1810;
+            background: rgba(112, 76, 182, 0.3);
+            color: var(--accent-gold);
             padding: 2px 6px;
-        }
-
-        .seed.seed-1 { border-color: #8b6f47; background: rgba(139, 111, 71, 0.1); }
-        .seed.seed-2 { border-color: #8b6f47; background: rgba(139, 111, 71, 0.1); }
-        .seed.seed-3 { border-color: #8b6f47; background: rgba(139, 111, 71, 0.1); }
-        .seed.seed-4 { border-color: #8b6f47; background: rgba(139, 111, 71, 0.1); }
-
-        .name {
+            border-radius: 4px;
+            font-size: 0.8em;
+            margin-right: 10px;
             font-weight: 600;
-            font-size: 1em;
-            margin-bottom: 3px;
-            color: #2a1810;
-            letter-spacing: 0.3px;
         }
 
-        .editable-name {
-            outline: none;
-            display: inline;
-            padding: 2px 4px;
-            border-radius: 2px;
-            transition: background 0.2s ease;
+        .contestant-name {
+            font-weight: 500;
+            color: var(--text-light);
         }
 
-        .editable-name:hover {
-            background: rgba(139, 111, 71, 0.1);
-        }
-
-        .editable-name:focus {
-            background: rgba(139, 111, 71, 0.15);
-            outline: 1px dashed #8b6f47;
-        }
-
-        .editable-text {
-            outline: none;
-            transition: background 0.2s ease;
-        }
-
-        .editable-text:hover {
-            background: rgba(139, 111, 71, 0.05);
-        }
-
-        .editable-text:focus {
-            background: rgba(139, 111, 71, 0.1);
-            outline: 1px dashed #8b6f47;
-        }
-
-        [contenteditable="true"]:hover {
-            cursor: text;
-        }
-
-        .stats {
-            font-size: 0.88em;
-            color: #5a4a3a;
-            margin-top: 3px;
-            font-family: 'EB Garamond', serif;
+        .contestant-stats {
+            font-size: 0.8em;
+            color: var(--text-dim);
             font-style: italic;
-            outline: none;
         }
 
-        .stats:focus {
-            background: rgba(139, 111, 71, 0.1);
-            outline: 1px dashed #8b6f47;
+        /* Finals and Championship */
+        .finals-round {
+            grid-column: 1 / -1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .finals-card {
+            background: var(--bg-card);
+            border: 2px solid var(--accent-gold);
+            border-radius: var(--border-radius);
+            padding: 25px;
+            text-align: center;
+            margin-bottom: 20px;
+            min-height: 120px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .championship {
+            background: var(--bg-card);
+            border: 2px double var(--accent-gold);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            text-align: center;
+            font-family: 'Crimson Text', serif;
+            font-size: 1.5em;
+            color: var(--accent-gold);
+            letter-spacing: 2px;
+            position: relative;
+            margin-top: 20px;
+        }
+
+        .championship::after {
+            content: "✨";
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 1.2em;
+        }
+
+        /* Scouting Reports */
+        .scouting-reports {
+            margin-top: 40px;
+        }
+
+        .scouting-reports h2 {
+            text-align: center;
+            font-family: 'Crimson Text', serif;
+            font-size: 1.8em;
+            color: var(--text-light);
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+            border-bottom: 1px solid var(--accent-purple);
+            padding-bottom: 10px;
+        }
+
+        .report {
+            background: var(--bg-card);
+            border: 1px solid var(--accent-purple);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow);
+        }
+
+        .report h3 {
+            font-family: 'Crimson Text', serif;
+            color: var(--text-light);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
         }
 
         .report-item {
             margin: 8px 0;
             padding-left: 15px;
-            position: relative;
-            font-family: 'EB Garamond', serif;
-            line-height: 1.6;
-            font-size: 0.95em;
-            outline: none;
-        }
-
-        .report-item:focus {
-            background: rgba(139, 111, 71, 0.1);
-            outline: 1px dashed #8b6f47;
-        }
-
-        .connector-line {
-            width: 40px;
-            height: 1px;
-            background: #8b6f47;
-            position: absolute;
-        }
-
-        .bracket-line {
-            position: absolute;
-            background: #8b6f47;
-        }
-
-        .horizontal-line {
-            height: 1px;
-        }
-
-        .vertical-line {
-            width: 1px;
-        }
-
-        .finals-round {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            flex: 0.8;
-        }
-
-        .finals-matchup {
-            margin-bottom: 25px;
-        }
-
-        .championship {
-            background: #fefdfb;
-            border: 2px double #8b6f47;
-            min-height: 80px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5em;
-            font-weight: 600;
-            color: #2a1810;
-            letter-spacing: 1px;
-            box-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-            position: relative;
-            font-family: 'Crimson Text', serif;
-        }
-
-        .championship::after {
-            content: 'approved';
-            position: absolute;
-            top: 8px;
-            right: 12px;
-            font-size: 0.35em;
-            color: #8b6f47;
-            transform: rotate(15deg);
-            opacity: 0.5;
-            border: 1px solid #8b6f47;
-            padding: 3px 10px;
-            letter-spacing: 2px;
-            font-style: italic;
-            font-weight: 400;
-        }
-
-        .scouting-reports {
-            background: #f9f3e8;
-            padding: 35px;
-            border: 3px double #8b6f47;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-
-        .scouting-reports h2 {
-            color: #2a1810;
-            margin-bottom: 25px;
-            text-align: center;
-            font-size: 2em;
-            font-weight: 600;
-            letter-spacing: 2px;
-            font-family: 'Crimson Text', serif;
-            border-bottom: 2px solid #2a1810;
-            padding-bottom: 10px;
-        }
-
-        .report {
-            background: #fefdfb;
-            padding: 20px;
-            margin-bottom: 20px;
-            border: 1px solid #8b6f47;
-            box-shadow: 2px 2px 4px rgba(0,0,0,0.08);
-            position: relative;
-        }
-
-        .report h3 {
-            margin-bottom: 12px;
-            font-size: 1.1em;
-            font-weight: 600;
-            color: #2a1810;
-            letter-spacing: 0.5px;
-            font-family: 'Crimson Text', serif;
+            color: var(--text-dim);
+            font-size: 0.9em;
         }
 
         .stars {
-            color: #8b6f47;
-            font-size: 0.95em;
+            color: var(--accent-gold);
+            font-size: 1.2em;
             margin-top: 10px;
-            letter-spacing: 3px;
-            font-weight: 400;
+            letter-spacing: 2px;
         }
 
+        /* Reset Button */
         .reset-btn {
             display: block;
-            margin: 25px auto;
-            padding: 10px 30px;
-            background: #fefdfb;
-            color: #2a1810;
-            border: 2px solid #2a1810;
+            margin: 30px auto;
+            padding: 12px 30px;
+            background: var(--bg-card);
+            color: var(--text-light);
+            border: 1px solid var(--accent-purple);
+            border-radius: 25px;
             font-size: 0.9em;
             font-weight: 500;
             cursor: pointer;
-            transition: all 0.2s ease;
-            font-family: 'EB Garamond', serif;
-            letter-spacing: 2px;
-            text-transform: lowercase;
-            box-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            transition: var(--transition);
+            font-family: 'Inter', sans-serif;
+            letter-spacing: 1px;
         }
 
         .reset-btn:hover {
-            background: #2a1810;
-            color: #fefdfb;
-            box-shadow: 3px 3px 6px rgba(0,0,0,0.2);
+            background: rgba(112, 76, 182, 0.3);
+            border-color: var(--accent-gold);
+            color: var(--accent-gold);
         }
 
-        @media (max-width: 1024px) {
-            .bracket {
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .matchup-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .top-nav {
                 flex-direction: column;
-                gap: 40px;
+                gap: 10px;
             }
 
-            .round {
-                gap: 20px;
+            header h1 {
+                font-size: 1.8em;
             }
-
-            h1 {
-                font-size: 2em;
-            }
-
-            .matchup-wrapper {
-                margin-bottom: 20px;
-            }
-        }
-
-        .instructions {
-            text-align: center;
-            color: #2a1810;
-            margin-bottom: 25px;
-            font-size: 0.85em;
-            opacity: 0.8;
-            font-style: italic;
-            letter-spacing: 0.5px;
-        }
-
-        .notes-box {
-            background: #fefdfb;
-            padding: 20px;
-            font-size: 0.95em;
-            line-height: 1.7;
-            color: #2a1810;
-            border: 1px solid #8b6f47;
-            margin-top: 25px;
-            box-shadow: 2px 2px 4px rgba(0,0,0,0.08);
-            font-family: 'EB Garamond', serif;
-            position: relative;
-        }
-
-        .notes-box p {
-            margin-bottom: 10px;
-        }
-
-        .notes-box strong {
-            display: block;
-            margin-bottom: 8px;
-            font-size: 1em;
-            text-transform: lowercase;
-            letter-spacing: 1px;
-            color: #2a1810;
-            font-weight: 600;
-            font-style: italic;
-            font-family: 'Crimson Text', serif;
         }
     </style>
 </head>
 <body>
     <div class="container">
+        <!-- Top Navigation -->
+        <nav class="top-nav">
+            <a href="#" class="active">You</a>
+            <a href="#">Chart</a>
+            <a href="#">Updates</a>
+        </nav>
+
+        <!-- Header -->
         <header>
-            <h1 contenteditable="true" class="editable-text">The Romance Bracket</h1>
-            <p class="subtitle" contenteditable="true" class="editable-text">a considered approach to matters of the heart</p>
+            <h1 contenteditable="true">The Romance Bracket</h1>
+            <p class="subtitle" contenteditable="true">a cosmic approach to matters of the heart</p>
         </header>
 
-        <p class="instructions" contenteditable="true" class="editable-text">
+        <!-- Instructions -->
+        <p class="instructions" contenteditable="true">
             tap a card to move forward with your choice
         </p>
 
+        <!-- Bracket Container -->
         <div class="bracket-container">
             <button class="reset-btn" onclick="resetBracket()">reset bracket</button>
-            
-            <div class="bracket">
-                <!-- LEFT SEMIFINALS -->
-                <div class="round">
-                    <h3 contenteditable="true" class="editable-text">round 1</h3>
-                    <div class="matchup-wrapper">
-                        <div class="matchup" id="semi1">
-                            <div class="contestant" data-winner="finalist1" onclick="selectWinner(this, 'semi1', 'finalist1')">
-                                <div class="name">
-                                    <span class="seed seed-1">#1</span>
-                                    <span contenteditable="true" class="editable-name">Funny Instagram Guy</span>
-                                </div>
-                                <div class="stats" contenteditable="true">Heavy Favorite | Self-aware humor</div>
+
+            <!-- Round 1: Sun in Leo -->
+            <div class="round">
+                <h3 contenteditable="true">☀️ sun in leo</h3>
+                <div class="matchup-grid">
+                    <div class="card" id="semi1" onclick="selectWinner(this, 'semi1', 'finalist1')">
+                        <div class="card-header">
+                            <span class="zodiac-icon">♌</span>
+                            <span class="card-title" contenteditable="true">Bold & Proud</span>
+                        </div>
+                        <p class="card-description" contenteditable="true">
+                            The sun determines your ego, identity, and "role" in life. Your Sun is in Leo, meaning you are fundamentally bold and proud.
+                        </p>
+                        <div class="contestant" data-winner="finalist1">
+                            <div class="contestant-info">
+                                <span class="seed">#1</span>
+                                <span class="contestant-name" contenteditable="true">Funny Instagram Guy</span>
                             </div>
-                            <div class="contestant" data-winner="finalist1" onclick="selectWinner(this, 'semi1', 'finalist1')">
-                                <div class="name">
-                                    <span class="seed seed-4">#4</span>
-                                    <span contenteditable="true" class="editable-name">Mystery Person</span>
-                                </div>
-                                <div class="stats" contenteditable="true">Wild Card | Unknown potential</div>
+                            <span class="contestant-stats" contenteditable="true">Heavy Favorite</span>
+                        </div>
+                        <div class="contestant" data-winner="finalist1">
+                            <div class="contestant-info">
+                                <span class="seed">#4</span>
+                                <span class="contestant-name" contenteditable="true">Mystery Person</span>
                             </div>
+                            <span class="contestant-stats" contenteditable="true">Wild Card</span>
                         </div>
                     </div>
 
-                    <div class="matchup-wrapper">
-                        <div class="matchup" id="semi2">
-                            <div class="contestant" data-winner="finalist2" onclick="selectWinner(this, 'semi2', 'finalist2')">
-                                <div class="name">
-                                    <span class="seed seed-2">#2</span>
-                                    <span contenteditable="true" class="editable-name">Philosophy Guy</span>
-                                </div>
-                                <div class="stats" contenteditable="true">Strong Contender | Clever banter</div>
-                            </div>
-                            <div class="contestant" data-winner="finalist2" onclick="selectWinner(this, 'semi2', 'finalist2')">
-                                <div class="name">
-                                    <span class="seed seed-3">#3</span>
-                                    <span contenteditable="true" class="editable-name">Carl (The DJ)</span>
-                                </div>
-                                <div class="stats" contenteditable="true">Dark Horse | Good hairline</div>
-                            </div>
+                    <div class="card" id="semi2" onclick="selectWinner(this, 'semi2', 'finalist2')">
+                        <div class="card-header">
+                            <span class="zodiac-icon">♌</span>
+                            <span class="card-title" contenteditable="true">Charming & Creative</span>
                         </div>
-                    </div>
-                </div>
-
-                <!-- FINALS -->
-                <div class="finals-round">
-                    <h3 contenteditable="true" class="editable-text">finals</h3>
-                    <div class="finals-matchup">
-                        <div class="matchup" id="finals">
-                            <div class="contestant" id="finalist1" data-winner="champion">
-                                <div class="name">TBD</div>
-                                <div class="stats">Awaiting winner...</div>
+                        <p class="card-description" contenteditable="true">
+                            You love attention and to be cared for. Your charm and creativity make people feel better.
+                        </p>
+                        <div class="contestant" data-winner="finalist2">
+                            <div class="contestant-info">
+                                <span class="seed">#2</span>
+                                <span class="contestant-name" contenteditable="true">Philosophy Guy</span>
                             </div>
-                            <div class="contestant" id="finalist2" data-winner="champion">
-                                <div class="name">TBD</div>
-                                <div class="stats">Awaiting winner...</div>
-                            </div>
+                            <span class="contestant-stats" contenteditable="true">Strong Contender</span>
                         </div>
-                    </div>
-
-                    <div class="championship" id="champion">
-                        <span id="championName">The Winner</span>
+                        <div class="contestant" data-winner="finalist2">
+                            <div class="contestant-info">
+                                <span class="seed">#3</span>
+                                <span class="contestant-name" contenteditable="true">Carl (The DJ)</span>
+                            </div>
+                            <span class="contestant-stats" contenteditable="true">Dark Horse</span>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div class="notes-box">
-                <strong contenteditable="true">Approach</strong>
-                <p contenteditable="true">Protecting your favorite from early comparison while keeping space for the unexpected. Conversation chemistry earned its ranking. Attraction needs more than surface appeal.</p>
+            <!-- Finals: Moon in Scorpio -->
+            <div class="round finals-round">
+                <h3 contenteditable="true">🌙 moon in scorpio</h3>
+                <div class="finals-card" id="finals">
+                    <div class="contestant" id="finalist1" data-winner="champion" onclick="selectChampion(this)">
+                        <div class="contestant-info">
+                            <span class="seed">TBD</span>
+                            <span class="contestant-name">Awaiting winner...</span>
+                        </div>
+                    </div>
+                    <div class="contestant" id="finalist2" data-winner="champion" onclick="selectChampion(this)">
+                        <div class="contestant-info">
+                            <span class="seed">TBD</span>
+                            <span class="contestant-name">Awaiting winner...</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="championship" id="champion">
+                    <span id="championName" contenteditable="true">The Winner</span>
+                </div>
             </div>
         </div>
 
+        <!-- Scouting Reports -->
         <div class="scouting-reports">
-            <h2 contenteditable="true" class="editable-text">Dossier</h2>
-            
-            <div class="report seed-1">
-                <h3><span class="seed seed-1">#1</span> <span contenteditable="true" class="editable-name">Funny Instagram Guy</span></h3>
-                <div class="report-item" contenteditable="true"><strong>Strengths:</strong> Self-aware humor, genuine personality, family-oriented</div>
-                <div class="report-item" contenteditable="true"><strong>Signature Move:</strong> "Negotiable grandchildren quantity at Sunday lunch"</div>
-                <div class="report-item" contenteditable="true"><strong>X-Factor:</strong> Different hair stands out from the pack</div>
+            <h2 contenteditable="true">Dossier</h2>
+
+            <div class="report">
+                <h3>
+                    <span class="seed">#1</span>
+                    <span class="zodiac-icon">♌</span>
+                    <span contenteditable="true">Funny Instagram Guy</span>
+                </h3>
+                <div class="report-item" contenteditable="true">
+                    <strong>Strengths:</strong> Self-aware humor, genuine personality, family-oriented.
+                </div>
+                <div class="report-item" contenteditable="true">
+                    <strong>Signature Move:</strong> "Negotiable grandchildren quantity at Sunday lunch."
+                </div>
+                <div class="report-item" contenteditable="true">
+                    <strong>X-Factor:</strong> Different hair stands out from the pack.
+                </div>
                 <div class="stars">★★★★★</div>
             </div>
 
-            <div class="report seed-2">
-                <h3><span class="seed seed-2">#2</span> <span contenteditable="true" class="editable-name">Philosophy Guy</span></h3>
-                <div class="report-item" contenteditable="true"><strong>Strengths:</strong> Clever banter, good style, European vacation energy</div>
-                <div class="report-item" contenteditable="true"><strong>Concerns:</strong> Potential AI photo red flags</div>
-                <div class="report-item" contenteditable="true"><strong>Signature Move:</strong> "Sartre with a glass of red wine"</div>
-                <div class="stars">★★★★</div>
+            <div class="report">
+                <h3>
+                    <span class="seed">#2</span>
+                    <span class="zodiac-icon">♌</span>
+                    <span contenteditable="true">Philosophy Guy</span>
+                </h3>
+                <div class="report-item" contenteditable="true">
+                    <strong>Strengths:</strong> Clever banter, good style, European vacation energy.
+                </div>
+                <div class="report-item" contenteditable="true">
+                    <strong>Concerns:</strong> Potential AI photo red flags.
+                </div>
+                <div class="report-item" contenteditable="true">
+                    <strong>Signature Move:</strong> "Sartre with a glass of red wine."
+                </div>
+                <div class="stars">★★★★☆</div>
             </div>
 
-            <div class="report seed-3">
-                <h3><span class="seed seed-3">#3</span> <span contenteditable="true" class="editable-name">Carl the DJ</span></h3>
-                <div class="report-item" contenteditable="true"><strong>Strengths:</strong> Good hairline, nice clothes, cute side profile</div>
-                <div class="report-item" contenteditable="true"><strong>Concerns:</strong> DJ lifestyle, suspicious Bass Pro Shop photo</div>
-                <div class="report-item" contenteditable="true"><strong>Status:</strong> Needs to prove himself in the tournament</div>
-                <div class="stars">★★★</div>
+            <div class="report">
+                <h3>
+                    <span class="seed">#3</span>
+                    <span class="zodiac-icon">♌</span>
+                    <span contenteditable="true">Carl the DJ</span>
+                </h3>
+                <div class="report-item" contenteditable="true">
+                    <strong>Strengths:</strong> Good hairline, nice clothes, cute side profile.
+                </div>
+                <div class="report-item" contenteditable="true">
+                    <strong>Concerns:</strong> DJ lifestyle, suspicious Bass Pro Shop photo.
+                </div>
+                <div class="report-item" contenteditable="true">
+                    <strong>Status:</strong> Needs to prove himself in the tournament.
+                </div>
+                <div class="stars">★★★☆☆</div>
             </div>
 
-            <div class="report seed-4">
-                <h3><span class="seed seed-4">#4</span> <span contenteditable="true" class="editable-name">Mystery Person</span></h3>
-                <div class="report-item" contenteditable="true"><strong>Status:</strong> TBD - Could upset the entire bracket</div>
-                <div class="report-item" contenteditable="true"><strong>Purpose:</strong> Keeps options open, prevents tunnel vision</div>
-                <div class="report-item" contenteditable="true"><strong>Note:</strong> Sometimes the best matches come from unexpected places</div>
-                <div class="stars">★★★</div>
+            <div class="report">
+                <h3>
+                    <span class="seed">#4</span>
+                    <span class="zodiac-icon">♌</span>
+                    <span contenteditable="true">Mystery Person</span>
+                </h3>
+                <div class="report-item" contenteditable="true">
+                    <strong>Status:</strong> TBD - Could upset the entire bracket.
+                </div>
+                <div class="report-item" contenteditable="true">
+                    <strong>Purpose:</strong> Keeps options open, prevents tunnel vision.
+                </div>
+                <div class="report-item" contenteditable="true">
+                    <strong>Note:</strong> Sometimes the best matches come from unexpected places.
+                </div>
+                <div class="stars">★★★☆☆</div>
             </div>
         </div>
     </div>
@@ -590,111 +536,75 @@
             champion: null
         };
 
-        function selectWinner(element, matchupId, finalistId) {
-            // Don't select if user is editing any text
+        function selectWinner(cardElement, matchupId, finalistId) {
             if (document.activeElement.isContentEditable) {
                 return;
             }
-            
-            const matchup = document.getElementById(matchupId);
-            const contestants = matchup.querySelectorAll('.contestant');
-            
-            // Remove selection from all contestants in this matchup
-            contestants.forEach(c => c.classList.remove('selected', 'winner'));
-            
-            // Mark this contestant as winner
-            element.classList.add('selected', 'winner');
-            
-            // Get the winner info
-            const seedElement = element.querySelector('.seed');
-            const nameElement = element.querySelector('.name');
-            const editableNameElement = element.querySelector('.editable-name');
-            const statsElement = element.querySelector('.stats');
-            
-            const winnerName = editableNameElement ? editableNameElement.textContent.trim() : nameElement.textContent.replace(seedElement.textContent, '').trim();
-            const winnerStats = statsElement ? statsElement.textContent : '';
-            const winnerSeed = seedElement.textContent;
-            
-            // Update the finalist
-            const finalistElement = document.getElementById(finalistId);
-            finalistElement.querySelector('.name').innerHTML = `${seedElement.outerHTML}${winnerName}`;
-            finalistElement.querySelector('.stats').textContent = winnerStats;
-            finalistElement.onclick = () => selectChampion(finalistElement, winnerName);
-            
-            // Store in state
-            bracketState[finalistId] = winnerName;
-            
-            // Check if we can enable finals
-            if (bracketState.finalist1 && bracketState.finalist2) {
-                document.getElementById('finals').style.borderColor = '#8b6f47';
-                document.getElementById('finals').style.borderWidth = '2px';
+
+            const contestants = cardElement.querySelectorAll('.contestant');
+            const selectedContestant = Array.from(contestants).find(c => c.classList.contains('selected'));
+
+            if (selectedContestant) {
+                const name = selectedContestant.querySelector('.contestant-name').textContent;
+                const stats = selectedContestant.querySelector('.contestant-stats').textContent;
+                const seed = selectedContestant.querySelector('.seed').textContent;
+
+                const finalistElement = document.getElementById(finalistId);
+                finalistElement.querySelector('.contestant-name').textContent = name;
+                finalistElement.querySelector('.contestant-stats').textContent = stats;
+                finalistElement.querySelector('.seed').textContent = seed;
+
+                bracketState[finalistId] = name;
+
+                if (bracketState.finalist1 && bracketState.finalist2) {
+                    document.getElementById('finals').style.borderColor = 'var(--accent-gold)';
+                }
+            } else {
+                contestants.forEach(contestant => {
+                    contestant.classList.toggle('selected');
+                });
             }
         }
 
-        function selectChampion(element, name) {
+        function selectChampion(element) {
             if (!bracketState.finalist1 || !bracketState.finalist2) {
                 alert('Complete the semifinals first!');
                 return;
             }
-            
+
             const finalsMatchup = document.getElementById('finals');
             const finalists = finalsMatchup.querySelectorAll('.contestant');
-            
-            finalists.forEach(f => f.classList.remove('selected', 'winner'));
-            element.classList.add('selected', 'winner');
-            
-            bracketState.champion = name;
-            
-            // Update championship display
-            const championElement = document.getElementById('championName');
-            championElement.textContent = `${name}`;
-            
-            // Add celebration effect
-            const championship = document.getElementById('champion');
-            championship.style.background = '#faf6ed';
-        }
 
-        function createConfetti() {
-            // Removed confetti effect for cleaner aesthetic
+            finalists.forEach(f => f.classList.remove('selected'));
+            element.classList.add('selected');
+
+            const championName = element.querySelector('.contestant-name').textContent;
+            document.getElementById('championName').textContent = championName;
+            bracketState.champion = championName;
         }
 
         function resetBracket() {
-            // Reset state
             bracketState = {
                 finalist1: null,
                 finalist2: null,
                 champion: null
             };
-            
-            // Reset all contestants
+
             document.querySelectorAll('.contestant').forEach(c => {
-                c.classList.remove('selected', 'winner');
+                c.classList.remove('selected');
             });
-            
-            // Reset finalists
-            document.getElementById('finalist1').querySelector('.name').textContent = 'TBD';
-            document.getElementById('finalist1').querySelector('.stats').textContent = 'Awaiting winner...';
-            document.getElementById('finalist1').onclick = null;
-            
-            document.getElementById('finalist2').querySelector('.name').textContent = 'TBD';
-            document.getElementById('finalist2').querySelector('.stats').textContent = 'Awaiting winner...';
-            document.getElementById('finalist2').onclick = null;
-            
-            // Reset championship
+
+            document.getElementById('finalist1').querySelector('.contestant-name').textContent = 'Awaiting winner...';
+            document.getElementById('finalist1').querySelector('.contestant-stats').textContent = '';
+            document.getElementById('finalist1').querySelector('.seed').textContent = 'TBD';
+
+            document.getElementById('finalist2').querySelector('.contestant-name').textContent = 'Awaiting winner...';
+            document.getElementById('finalist2').querySelector('.contestant-stats').textContent = '';
+            document.getElementById('finalist2').querySelector('.seed').textContent = 'TBD';
+
             document.getElementById('championName').textContent = 'The Winner';
-            document.getElementById('champion').style.background = '#fefdfb';
-            document.getElementById('finals').style.borderColor = '#8b6f47';
-            document.getElementById('finals').style.borderWidth = '1px';
-            document.getElementById('finals').style.background = '';
             document.getElementById('finals').style.borderColor = '';
         }
-
-        // Add keyboard animation
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'r' || e.key === 'R') {
-                resetBracket();
-            }
-        });
     </script>
 </body>
 </html>
