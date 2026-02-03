@@ -697,13 +697,6 @@
             localStorage.setItem('romanceBracket', JSON.stringify(data));
         }
 
-        // Load data when page loads
-window.addEventListener('load', () => {
-    // Clear localStorage on page load to show hardcoded values first
-    localStorage.removeItem('romanceBracket');
-    loadData();
-});
-
 function loadData() {
     const saved = localStorage.getItem('romanceBracket');
     if (saved) {
