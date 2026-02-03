@@ -682,7 +682,54 @@
                 resetBracket();
             }
         });
+// Save all editable content to localStorage
+        function saveData() {
+            const data = {
+                bracketState: bracketState,
+                editableContent: {}
+            };
 
+            // Save all contenteditable elements
+            document.querySelectorAll('[contenteditable="true"]').forEach((el, index) => {
+                data.editableContent[index] = el.innerHTML;
+            });
+
+            localStorage.setItem('romanceBracket', JSON.stringify(data));
+        }
+
+        // Load data from localStorage
+        function loadData() {
+            const saved = localStorage.getItem('romanceBracket');
+            if (saved) {
+                const data = JSON.parse(saved);
+
+                // Restore bracket state
+                bracketState = data.bracketState;
+
+                // Restore editable content
+                document.querySelectorAll('[contenteditable="true"]').forEach((el, index) => {
+                    if (data.editableContent[index]) {
+                        el.innerHTML = data.editableContent[index];
+                    }
+                });
+
+                // Restore visual state of winners
+                document.querySelectorAll('.contestant').forEach(c => {
+                    if (c.classList.contains('winner')) {
+                        // Re-apply winner styles
+                    }
+                });
+            }
+        }
+
+        // Auto-save whenever content changes
+        document.addEventListener('input', saveData);
+        document.addEventListener('click', () => {
+            setTimeout(saveData, 100);
+        });
+
+        // Load data when page loads
+        window.addEventListener('load', loadData);
         
     </script>
 </body>
