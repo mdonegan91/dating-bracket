@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dating Championship Bracket 2026</title>
+    <title>The Romance Bracket</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>❤️</text></svg>">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap');
 
@@ -187,12 +188,68 @@
             letter-spacing: 0.3px;
         }
 
+        .editable-name {
+            outline: none;
+            display: inline;
+            padding: 2px 4px;
+            border-radius: 2px;
+            transition: background 0.2s ease;
+        }
+
+        .editable-name:hover {
+            background: rgba(139, 111, 71, 0.1);
+        }
+
+        .editable-name:focus {
+            background: rgba(139, 111, 71, 0.15);
+            outline: 1px dashed #8b6f47;
+        }
+
+        .editable-text {
+            outline: none;
+            transition: background 0.2s ease;
+        }
+
+        .editable-text:hover {
+            background: rgba(139, 111, 71, 0.05);
+        }
+
+        .editable-text:focus {
+            background: rgba(139, 111, 71, 0.1);
+            outline: 1px dashed #8b6f47;
+        }
+
+        [contenteditable="true"]:hover {
+            cursor: text;
+        }
+
         .stats {
             font-size: 0.88em;
             color: #5a4a3a;
             margin-top: 3px;
             font-family: 'EB Garamond', serif;
             font-style: italic;
+            outline: none;
+        }
+
+        .stats:focus {
+            background: rgba(139, 111, 71, 0.1);
+            outline: 1px dashed #8b6f47;
+        }
+
+        .report-item {
+            margin: 8px 0;
+            padding-left: 15px;
+            position: relative;
+            font-family: 'EB Garamond', serif;
+            line-height: 1.6;
+            font-size: 0.95em;
+            outline: none;
+        }
+
+        .report-item:focus {
+            background: rgba(139, 111, 71, 0.1);
+            outline: 1px dashed #8b6f47;
         }
 
         .connector-line {
@@ -242,15 +299,6 @@
             font-family: 'Crimson Text', serif;
         }
 
-        .championship::before {
-            content: '🌿';
-            position: absolute;
-            top: 8px;
-            left: 12px;
-            font-size: 0.6em;
-            opacity: 0.5;
-        }
-
         .championship::after {
             content: 'approved';
             position: absolute;
@@ -295,24 +343,6 @@
             position: relative;
         }
 
-        .report::before {
-            content: '🌿 call no.';
-            position: absolute;
-            top: -8px;
-            left: 12px;
-            background: #f9f3e8;
-            padding: 0 6px;
-            font-size: 0.7em;
-            color: #8b6f47;
-            letter-spacing: 1px;
-            font-style: italic;
-        }
-
-        .report.seed-1::before { content: '🌿 call no. 001'; }
-        .report.seed-2::before { content: '🌿 call no. 002'; }
-        .report.seed-3::before { content: '🌿 call no. 003'; }
-        .report.seed-4::before { content: '🌿 call no. 004'; }
-
         .report h3 {
             margin-bottom: 12px;
             font-size: 1.1em;
@@ -320,22 +350,6 @@
             color: #2a1810;
             letter-spacing: 0.5px;
             font-family: 'Crimson Text', serif;
-        }
-
-        .report-item {
-            margin: 8px 0;
-            padding-left: 15px;
-            position: relative;
-            font-family: 'EB Garamond', serif;
-            line-height: 1.6;
-            font-size: 0.95em;
-        }
-
-        .report-item:before {
-            content: "—";
-            position: absolute;
-            left: 0;
-            color: #2a1810;
         }
 
         .stars {
@@ -411,16 +425,6 @@
             position: relative;
         }
 
-        .notes-box::before {
-            content: '🌿';
-            position: absolute;
-            top: -8px;
-            left: 12px;
-            background: #f9f3e8;
-            padding: 0 4px;
-            font-size: 1.2em;
-        }
-
         .notes-box p {
             margin-bottom: 10px;
         }
@@ -441,11 +445,11 @@
 <body>
     <div class="container">
         <header>
-            <h1>The Romance Bracket</h1>
-            <p class="subtitle">a considered approach to matters of the heart</p>
+            <h1 contenteditable="true" class="editable-text">The Romance Bracket</h1>
+            <p class="subtitle" contenteditable="true" class="editable-text">a considered approach to matters of the heart</p>
         </header>
 
-        <p class="instructions">
+        <p class="instructions" contenteditable="true" class="editable-text">
             tap a card to move forward with your choice
         </p>
 
@@ -455,22 +459,22 @@
             <div class="bracket">
                 <!-- LEFT SEMIFINALS -->
                 <div class="round">
-                    <h3>Round 1</h3>
+                    <h3 contenteditable="true" class="editable-text">round 1</h3>
                     <div class="matchup-wrapper">
                         <div class="matchup" id="semi1">
                             <div class="contestant" data-winner="finalist1" onclick="selectWinner(this, 'semi1', 'finalist1')">
                                 <div class="name">
                                     <span class="seed seed-1">#1</span>
-                                    Funny Instagram Guy
+                                    <span contenteditable="true" class="editable-name">Funny Instagram Guy</span>
                                 </div>
-                                <div class="stats">Heavy Favorite | Self-aware humor</div>
+                                <div class="stats" contenteditable="true">Heavy Favorite | Self-aware humor</div>
                             </div>
                             <div class="contestant" data-winner="finalist1" onclick="selectWinner(this, 'semi1', 'finalist1')">
                                 <div class="name">
                                     <span class="seed seed-4">#4</span>
-                                    Mystery Person
+                                    <span contenteditable="true" class="editable-name">Mystery Person</span>
                                 </div>
-                                <div class="stats">Wild Card | Unknown potential</div>
+                                <div class="stats" contenteditable="true">Wild Card | Unknown potential</div>
                             </div>
                         </div>
                     </div>
@@ -480,16 +484,16 @@
                             <div class="contestant" data-winner="finalist2" onclick="selectWinner(this, 'semi2', 'finalist2')">
                                 <div class="name">
                                     <span class="seed seed-2">#2</span>
-                                    Philosophy Guy
+                                    <span contenteditable="true" class="editable-name">Philosophy Guy</span>
                                 </div>
-                                <div class="stats">Strong Contender | Clever banter</div>
+                                <div class="stats" contenteditable="true">Strong Contender | Clever banter</div>
                             </div>
                             <div class="contestant" data-winner="finalist2" onclick="selectWinner(this, 'semi2', 'finalist2')">
                                 <div class="name">
                                     <span class="seed seed-3">#3</span>
-                                    Carl (The DJ)
+                                    <span contenteditable="true" class="editable-name">Carl (The DJ)</span>
                                 </div>
-                                <div class="stats">Dark Horse | Good hairline</div>
+                                <div class="stats" contenteditable="true">Dark Horse | Good hairline</div>
                             </div>
                         </div>
                     </div>
@@ -497,7 +501,7 @@
 
                 <!-- FINALS -->
                 <div class="finals-round">
-                    <h3>Finals</h3>
+                    <h3 contenteditable="true" class="editable-text">finals</h3>
                     <div class="finals-matchup">
                         <div class="matchup" id="finals">
                             <div class="contestant" id="finalist1" data-winner="champion">
@@ -518,43 +522,43 @@
             </div>
 
             <div class="notes-box">
-                <strong>Approach</strong>
-                <p>Protecting your favorite from early comparison while keeping space for the unexpected. Conversation chemistry earned its ranking. Attraction needs more than surface appeal.</p>
+                <strong contenteditable="true">Approach</strong>
+                <p contenteditable="true">Protecting your favorite from early comparison while keeping space for the unexpected. Conversation chemistry earned its ranking. Attraction needs more than surface appeal.</p>
             </div>
         </div>
 
         <div class="scouting-reports">
-            <h2>Dossier</h2>
+            <h2 contenteditable="true" class="editable-text">Dossier</h2>
             
             <div class="report seed-1">
-                <h3><span class="seed seed-1">#1</span> Funny Instagram Guy</h3>
-                <div class="report-item"><strong>Strengths:</strong> Self-aware humor, genuine personality, family-oriented</div>
-                <div class="report-item"><strong>Signature Move:</strong> "Negotiable grandchildren quantity at Sunday lunch"</div>
-                <div class="report-item"><strong>X-Factor:</strong> Different hair stands out from the pack</div>
+                <h3><span class="seed seed-1">#1</span> <span contenteditable="true" class="editable-name">Funny Instagram Guy</span></h3>
+                <div class="report-item" contenteditable="true"><strong>Strengths:</strong> Self-aware humor, genuine personality, family-oriented</div>
+                <div class="report-item" contenteditable="true"><strong>Signature Move:</strong> "Negotiable grandchildren quantity at Sunday lunch"</div>
+                <div class="report-item" contenteditable="true"><strong>X-Factor:</strong> Different hair stands out from the pack</div>
                 <div class="stars">★★★★★</div>
             </div>
 
             <div class="report seed-2">
-                <h3><span class="seed seed-2">#2</span> Philosophy Guy</h3>
-                <div class="report-item"><strong>Strengths:</strong> Clever banter, good style, European vacation energy</div>
-                <div class="report-item"><strong>Concerns:</strong> Potential AI photo red flags</div>
-                <div class="report-item"><strong>Signature Move:</strong> "Sartre with a glass of red wine"</div>
+                <h3><span class="seed seed-2">#2</span> <span contenteditable="true" class="editable-name">Philosophy Guy</span></h3>
+                <div class="report-item" contenteditable="true"><strong>Strengths:</strong> Clever banter, good style, European vacation energy</div>
+                <div class="report-item" contenteditable="true"><strong>Concerns:</strong> Potential AI photo red flags</div>
+                <div class="report-item" contenteditable="true"><strong>Signature Move:</strong> "Sartre with a glass of red wine"</div>
                 <div class="stars">★★★★</div>
             </div>
 
             <div class="report seed-3">
-                <h3><span class="seed seed-3">#3</span> Carl the DJ</h3>
-                <div class="report-item"><strong>Strengths:</strong> Good hairline, nice clothes, cute side profile</div>
-                <div class="report-item"><strong>Concerns:</strong> DJ lifestyle, suspicious Bass Pro Shop photo</div>
-                <div class="report-item"><strong>Status:</strong> Needs to prove himself in the tournament</div>
+                <h3><span class="seed seed-3">#3</span> <span contenteditable="true" class="editable-name">Carl the DJ</span></h3>
+                <div class="report-item" contenteditable="true"><strong>Strengths:</strong> Good hairline, nice clothes, cute side profile</div>
+                <div class="report-item" contenteditable="true"><strong>Concerns:</strong> DJ lifestyle, suspicious Bass Pro Shop photo</div>
+                <div class="report-item" contenteditable="true"><strong>Status:</strong> Needs to prove himself in the tournament</div>
                 <div class="stars">★★★</div>
             </div>
 
             <div class="report seed-4">
-                <h3><span class="seed seed-4">#4</span> Mystery Person</h3>
-                <div class="report-item"><strong>Status:</strong> TBD - Could upset the entire bracket</div>
-                <div class="report-item"><strong>Purpose:</strong> Keeps options open, prevents tunnel vision</div>
-                <div class="report-item"><strong>Note:</strong> Sometimes the best matches come from unexpected places</div>
+                <h3><span class="seed seed-4">#4</span> <span contenteditable="true" class="editable-name">Mystery Person</span></h3>
+                <div class="report-item" contenteditable="true"><strong>Status:</strong> TBD - Could upset the entire bracket</div>
+                <div class="report-item" contenteditable="true"><strong>Purpose:</strong> Keeps options open, prevents tunnel vision</div>
+                <div class="report-item" contenteditable="true"><strong>Note:</strong> Sometimes the best matches come from unexpected places</div>
                 <div class="stars">★★★</div>
             </div>
         </div>
@@ -568,6 +572,11 @@
         };
 
         function selectWinner(element, matchupId, finalistId) {
+            // Don't select if user is editing any text
+            if (document.activeElement.isContentEditable) {
+                return;
+            }
+            
             const matchup = document.getElementById(matchupId);
             const contestants = matchup.querySelectorAll('.contestant');
             
@@ -580,9 +589,10 @@
             // Get the winner info
             const seedElement = element.querySelector('.seed');
             const nameElement = element.querySelector('.name');
+            const editableNameElement = element.querySelector('.editable-name');
             const statsElement = element.querySelector('.stats');
             
-            const winnerName = nameElement.textContent.replace(seedElement.textContent, '').trim();
+            const winnerName = editableNameElement ? editableNameElement.textContent.trim() : nameElement.textContent.replace(seedElement.textContent, '').trim();
             const winnerStats = statsElement ? statsElement.textContent : '';
             const winnerSeed = seedElement.textContent;
             
