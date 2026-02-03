@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Romance Bracket</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>❤️</text></svg>">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>❤️</text></svg>">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Helvetica+Neue:wght@300;400;500;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;600&family=Courier+Prime:wght@400&display=swap');
 
         * {
             margin: 0;
@@ -15,11 +17,10 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'Helvetica', Arial, sans-serif;
-            background: #000000;
+            font-family: 'Courier Prime', 'Courier New', monospace;
+            background: #f5f5f5;
             min-height: 100vh;
-            padding: 20px;
-            color: #ffffff;
+            color: #000000;
         }
 
         .container {
@@ -29,56 +30,63 @@
 
         header {
             text-align: center;
-            color: #ffffff;
-            margin-bottom: 60px;
+            color: #000000;
+            margin-bottom: 30px;
             position: relative;
             padding: 80px 20px 60px;
-            background: #000000;
-            border-bottom: 1px solid #ffffff;
+            background: #ffffff;
+            border-bottom: 1px solid #d0d0d0;
         }
 
-        header::before {
+        header::after {
             content: '';
             position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 200px;
-            height: 200px;
-            background: url('lisbon.webp');
+            bottom: -120px;
+            right: 0%;
+            width: 180px;
+            height: 180px;
+            background: url(trolleytrolley.png);
             background-size: cover;
             background-position: center;
-            filter: grayscale(100%) contrast(1.2);
-            opacity: 0.3;
+            filter: grayscale(100%) contrast(3);
+            opacity: 0.4;
             border-radius: 50%;
+            border: 1px solid #d0d0d0;
         }
 
         h1 {
-            font-size: 2em;
+            font-family: 'Crimson Text', Georgia, serif;
+            font-size: 2.5em;
             margin-bottom: 12px;
-            font-weight: 300;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            position: relative;
-            z-index: 1;
+            font-weight: 400;
+            letter-spacing: 2px;
         }
 
         .subtitle {
-            font-size: 0.9em;
+            font-size: 0.95em;
             opacity: 0.7;
-            font-weight: 300;
-            letter-spacing: 2px;
+            font-weight: 400;
+            letter-spacing: 1px;
             font-style: normal;
+            font-family: 'Courier Prime', monospace;
+        }
+
+        .instructions {
+            text-align: center;
+            color: rgba(0, 0, 0, 0.6);
+            margin-bottom: -50px;
+            margin-top: 150px;
+            font-size: 0.9em;
+            opacity: 0.9;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+            font-family: 'Courier Prime', monospace;
             position: relative;
-            z-index: 1;
         }
 
         .bracket-container {
-            background: #000000;
+            background: #f5f5f5;
             padding: 60px 30px;
-            margin-bottom: 40px;
-            border-top: 1px solid #ffffff;
-            border-bottom: 1px solid #ffffff;
         }
 
         .bracket {
@@ -100,14 +108,12 @@
 
         .round h3 {
             text-align: center;
-            color: #ffffff;
-            margin-bottom: 40px;
-            font-size: 0.75em;
-            text-transform: uppercase;
-            letter-spacing: 4px;
-            font-weight: 300;
-            padding-bottom: 12px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            color: #000000;
+            font-size: 0.9em;
+            letter-spacing: 2px;
+            font-weight: 400;
+            margin-bottom: 10px;
+            font-family: 'Crimson Text', serif;
         }
 
         .matchup-wrapper {
@@ -117,8 +123,8 @@
         }
 
         .matchup {
-            background: #000000;
-            border: 1px solid #ffffff;
+            background: #ffffff;
+            border: 1px solid #d0d0d0;
             flex: 1;
             cursor: pointer;
             transition: all 0.2s ease;
@@ -126,30 +132,16 @@
         }
 
         .matchup:hover {
-            background: #0a0a0a;
+            border-color: #a0a0a0;
         }
 
         .contestant {
-            background: #000000;
+            background: #ffffff;
             padding: 20px 15px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            border-bottom: 1px solid #e5e5e5;
             transition: all 0.2s ease;
             position: relative;
             font-size: 0.95em;
-        }
-
-        .contestant::before {
-            content: '○';
-            position: absolute;
-            left: -20px;
-            top: 20px;
-            font-size: 1em;
-            color: #ffffff;
-        }
-
-        .contestant.winner::before {
-            content: '●';
-            color: #ffffff;
         }
 
         .contestant:last-child {
@@ -157,34 +149,36 @@
         }
 
         .contestant.selected {
-            background: #000000;
+            background: #ffffff;
         }
 
         .contestant.winner {
-            background: #0a0a0a;
-            border-left: 2px solid #ffffff;
+            background: #fafafa;
+            border-left: 2px solid #000000;
             padding-left: 13px;
         }
 
         .seed {
             display: inline-block;
             background: none;
-            color: #ffffff;
+            color: #000000;
             padding: 0;
-            font-size: 0.7em;
-            font-weight: 300;
+            font-size: 0.75em;
+            font-weight: 400;
             margin-right: 12px;
-            border: 1px solid #ffffff;
+            border: 1px solid #d0d0d0;
             padding: 2px 8px;
             letter-spacing: 1px;
+            font-family: 'Courier Prime', monospace;
         }
 
         .name {
             font-weight: 400;
-            font-size: 1em;
+            font-size: 1.05em;
             margin-bottom: 8px;
-            color: #ffffff;
-            letter-spacing: 0.5px;
+            color: #000000;
+            letter-spacing: 0.3px;
+            font-family: 'Crimson Text', serif;
         }
 
         .editable-name {
@@ -195,12 +189,12 @@
         }
 
         .editable-name:hover {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(0, 0, 0, 0.03);
         }
 
         .editable-name:focus {
-            background: rgba(255, 255, 255, 0.1);
-            outline: 1px solid rgba(255, 255, 255, 0.3);
+            background: rgba(0, 0, 0, 0.05);
+            outline: 1px solid rgba(0, 0, 0, 0.2);
         }
 
         .editable-text {
@@ -209,12 +203,12 @@
         }
 
         .editable-text:hover {
-            background: rgba(255, 255, 255, 0.03);
+            background: rgba(0, 0, 0, 0.02);
         }
 
         .editable-text:focus {
-            background: rgba(255, 255, 255, 0.08);
-            outline: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(0, 0, 0, 0.04);
+            outline: 1px solid rgba(0, 0, 0, 0.15);
         }
 
         [contenteditable="true"]:hover {
@@ -223,16 +217,17 @@
 
         .stats {
             font-size: 0.85em;
-            color: rgba(255, 255, 255, 0.6);
+            color: rgba(0, 0, 0, 0.6);
             margin-top: 6px;
-            font-weight: 300;
-            letter-spacing: 0.5px;
+            font-weight: 400;
+            letter-spacing: 0.3px;
             outline: none;
+            font-family: 'Courier Prime', monospace;
         }
 
         .stats:focus {
-            background: rgba(255, 255, 255, 0.05);
-            outline: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(0, 0, 0, 0.03);
+            outline: 1px solid rgba(0, 0, 0, 0.15);
         }
 
         .report-item {
@@ -242,25 +237,27 @@
             line-height: 1.7;
             font-size: 0.9em;
             outline: none;
-            font-weight: 300;
-            letter-spacing: 0.3px;
+            font-weight: 400;
+            letter-spacing: 0.2px;
+            font-family: 'Courier Prime', monospace;
+            color: rgba(0, 0, 0, 0.7);
         }
 
         .report-item:focus {
-            background: rgba(255, 255, 255, 0.05);
-            outline: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(0, 0, 0, 0.03);
+            outline: 1px solid rgba(0, 0, 0, 0.15);
         }
 
         .connector-line {
             width: 40px;
             height: 1px;
-            background: rgba(255, 255, 255, 0.3);
+            background: #d0d0d0;
             position: absolute;
         }
 
         .bracket-line {
             position: absolute;
-            background: rgba(255, 255, 255, 0.3);
+            background: #d0d0d0;
         }
 
         .horizontal-line {
@@ -283,18 +280,18 @@
         }
 
         .championship {
-            background: #000000;
-            border: 2px solid #ffffff;
+            background: #ffffff;
+            border: 1px solid #d0d0d0;
             min-height: 100px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.3em;
-            font-weight: 300;
-            color: #ffffff;
-            letter-spacing: 3px;
+            font-size: 1.4em;
+            font-weight: 400;
+            color: #000000;
+            letter-spacing: 1px;
             position: relative;
-            text-transform: uppercase;
+            font-family: 'Crimson Text', serif;
         }
 
         .championship::after {
@@ -303,79 +300,74 @@
             top: 12px;
             right: 15px;
             font-size: 0.5em;
-            color: #ffffff;
-            opacity: 0.4;
+            color: #000000;
+            opacity: 0.3;
         }
 
         .scouting-reports {
-            background: #000000;
-            padding: 50px 30px;
-            border-top: 1px solid #ffffff;
-            border-bottom: 1px solid #ffffff;
+            background: #f5f5f5;
+            padding: 0px 30px;
         }
 
         .scouting-reports h2 {
-            color: #ffffff;
+            color: #000000;
             margin-bottom: 40px;
             text-align: center;
-            font-size: 1.2em;
-            font-weight: 300;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            font-size: 1.5em;
+            font-weight: 400;
+            letter-spacing: 2px;
+            font-family: 'Crimson Text', serif;
+            border-bottom: 1px solid #d0d0d0;
             padding-bottom: 20px;
         }
 
         .report {
-            background: #000000;
-            padding: 30px 0;
-            margin-bottom: 30px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            background: #ffffff;
+            padding: 30px;
+            margin-bottom: 25px;
+            border: 1px solid #d0d0d0;
             position: relative;
         }
 
         .report:last-child {
-            border-bottom: none;
+            border-bottom: 1px solid #d0d0d0;
         }
 
         .report h3 {
-            margin-bottom: 12px;
+            margin-bottom: 20px;
             font-size: 1.1em;
-            font-weight: 600;
-            color: #2a1810;
-            letter-spacing: 0.5px;
+            font-weight: 400;
+            color: #000000;
+            letter-spacing: 1px;
             font-family: 'Crimson Text', serif;
         }
 
         .stars {
-            color: #8b6f47;
-            font-size: 0.95em;
-            margin-top: 10px;
-            letter-spacing: 3px;
+            color: rgba(0, 0, 0, 0.4);
+            font-size: 0.9em;
+            margin-top: 15px;
+            letter-spacing: 4px;
             font-weight: 400;
         }
 
         .reset-btn {
             display: block;
-            margin: 25px auto;
-            padding: 10px 30px;
-            background: #fefdfb;
-            color: #2a1810;
-            border: 2px solid #2a1810;
-            font-size: 0.9em;
-            font-weight: 500;
+            margin: 40px auto;
+            padding: 12px 40px;
+            background: #ffffff;
+            color: #000000;
+            border: 1px solid #d0d0d0;
+            font-size: 0.85em;
+            font-weight: 400;
             cursor: pointer;
             transition: all 0.2s ease;
-            font-family: 'EB Garamond', serif;
-            letter-spacing: 2px;
-            text-transform: lowercase;
-            box-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            letter-spacing: 1px;
+            font-family: 'Courier Prime', monospace;
         }
 
         .reset-btn:hover {
-            background: #2a1810;
-            color: #fefdfb;
-            box-shadow: 3px 3px 6px rgba(0,0,0,0.2);
+            background: #f5f5f5;
+            border-color: #a0a0a0;
         }
 
         @media (max-width: 1024px) {
@@ -395,29 +387,26 @@
             .matchup-wrapper {
                 margin-bottom: 20px;
             }
-        }
 
-        .instructions {
-            text-align: center;
-            color: #2a1810;
-            margin-bottom: 25px;
-            font-size: 0.85em;
-            opacity: 0.8;
-            font-style: italic;
-            letter-spacing: 0.5px;
+            .instructions::after {
+                right: 10%;
+                width: 150px;
+                height: 150px;
+            }
         }
 
         .notes-box {
-            background: #fefdfb;
-            padding: 20px;
-            font-size: 0.95em;
-            line-height: 1.7;
-            color: #2a1810;
-            border: 1px solid #8b6f47;
-            margin-top: 25px;
-            box-shadow: 2px 2px 4px rgba(0,0,0,0.08);
-            font-family: 'EB Garamond', serif;
+            background: #ffffff;
+            padding: 30px;
+            font-size: 0.9em;
+            line-height: 1.8;
+            color: rgba(0, 0, 0, 0.7);
+            border: 1px solid #d0d0d0;
+            margin-top: 30px;
             position: relative;
+            font-weight: 400;
+            letter-spacing: 0.2px;
+            font-family: 'Courier Prime', monospace;
         }
 
         .notes-box p {
@@ -426,22 +415,22 @@
 
         .notes-box strong {
             display: block;
-            margin-bottom: 8px;
-            font-size: 1em;
-            text-transform: lowercase;
+            margin-bottom: 12px;
+            font-size: 0.95em;
             letter-spacing: 1px;
-            color: #2a1810;
-            font-weight: 600;
-            font-style: italic;
+            color: #000000;
+            font-weight: 400;
             font-family: 'Crimson Text', serif;
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <header>
             <h1 contenteditable="true" class="editable-text">The Romance Bracket</h1>
-            <p class="subtitle" contenteditable="true" class="editable-text">a considered approach to matters of the heart</p>
+            <p class="subtitle" contenteditable="true" class="editable-text">a considered approach to matters of the
+                heart</p>
         </header>
 
         <p class="instructions" contenteditable="true" class="editable-text">
@@ -450,21 +439,23 @@
 
         <div class="bracket-container">
             <button class="reset-btn" onclick="resetBracket()">reset bracket</button>
-            
+
             <div class="bracket">
                 <!-- LEFT SEMIFINALS -->
                 <div class="round">
                     <h3 contenteditable="true" class="editable-text">round 1</h3>
                     <div class="matchup-wrapper">
                         <div class="matchup" id="semi1">
-                            <div class="contestant" data-winner="finalist1" onclick="selectWinner(this, 'semi1', 'finalist1')">
+                            <div class="contestant" data-winner="finalist1"
+                                onclick="selectWinner(this, 'semi1', 'finalist1')">
                                 <div class="name">
                                     <span class="seed seed-1">#1</span>
                                     <span contenteditable="true" class="editable-name">Funny Instagram Guy</span>
                                 </div>
                                 <div class="stats" contenteditable="true">Heavy Favorite | Self-aware humor</div>
                             </div>
-                            <div class="contestant" data-winner="finalist1" onclick="selectWinner(this, 'semi1', 'finalist1')">
+                            <div class="contestant" data-winner="finalist1"
+                                onclick="selectWinner(this, 'semi1', 'finalist1')">
                                 <div class="name">
                                     <span class="seed seed-4">#4</span>
                                     <span contenteditable="true" class="editable-name">Mystery Person</span>
@@ -476,14 +467,16 @@
 
                     <div class="matchup-wrapper">
                         <div class="matchup" id="semi2">
-                            <div class="contestant" data-winner="finalist2" onclick="selectWinner(this, 'semi2', 'finalist2')">
+                            <div class="contestant" data-winner="finalist2"
+                                onclick="selectWinner(this, 'semi2', 'finalist2')">
                                 <div class="name">
                                     <span class="seed seed-2">#2</span>
                                     <span contenteditable="true" class="editable-name">Philosophy Guy</span>
                                 </div>
                                 <div class="stats" contenteditable="true">Strong Contender | Clever banter</div>
                             </div>
-                            <div class="contestant" data-winner="finalist2" onclick="selectWinner(this, 'semi2', 'finalist2')">
+                            <div class="contestant" data-winner="finalist2"
+                                onclick="selectWinner(this, 'semi2', 'finalist2')">
                                 <div class="name">
                                     <span class="seed seed-3">#3</span>
                                     <span contenteditable="true" class="editable-name">Carl (The DJ)</span>
@@ -518,42 +511,59 @@
 
             <div class="notes-box">
                 <strong contenteditable="true">Approach</strong>
-                <p contenteditable="true">Protecting your favorite from early comparison while keeping space for the unexpected. Conversation chemistry earned its ranking. Attraction needs more than surface appeal.</p>
+                <p contenteditable="true">Protecting your favorite from early comparison while keeping space for the
+                    unexpected. Conversation chemistry earned its ranking. Attraction needs more than surface appeal.
+                </p>
             </div>
         </div>
-
         <div class="scouting-reports">
             <h2 contenteditable="true" class="editable-text">Dossier</h2>
-            
+
             <div class="report seed-1">
-                <h3><span class="seed seed-1">#1</span> <span contenteditable="true" class="editable-name">Funny Instagram Guy</span></h3>
-                <div class="report-item" contenteditable="true"><strong>Strengths:</strong> Self-aware humor, genuine personality, family-oriented</div>
-                <div class="report-item" contenteditable="true"><strong>Signature Move:</strong> "Negotiable grandchildren quantity at Sunday lunch"</div>
-                <div class="report-item" contenteditable="true"><strong>X-Factor:</strong> Different hair stands out from the pack</div>
+                <h3><span class="seed seed-1">#1</span> <span contenteditable="true" class="editable-name">Funny
+                        Instagram Guy</span></h3>
+                <div class="report-item" contenteditable="true"><strong>Strengths:</strong> Self-aware humor, genuine
+                    personality, family-oriented</div>
+                <div class="report-item" contenteditable="true"><strong>Concerns:</strong> Might be too good to be true
+                </div>
+                <div class="report-item" contenteditable="true"><strong>Notes:</strong> "Negotiable grandchildren
+                    quantity at Sunday lunch"</div>
                 <div class="stars">★★★★★</div>
             </div>
 
             <div class="report seed-2">
-                <h3><span class="seed seed-2">#2</span> <span contenteditable="true" class="editable-name">Philosophy Guy</span></h3>
-                <div class="report-item" contenteditable="true"><strong>Strengths:</strong> Clever banter, good style, European vacation energy</div>
-                <div class="report-item" contenteditable="true"><strong>Concerns:</strong> Potential AI photo red flags</div>
-                <div class="report-item" contenteditable="true"><strong>Signature Move:</strong> "Sartre with a glass of red wine"</div>
+                <h3><span class="seed seed-2">#2</span> <span contenteditable="true" class="editable-name">Philosophy
+                        Guy</span></h3>
+                <div class="report-item" contenteditable="true"><strong>Strengths:</strong> Clever banter, good style,
+                    European vacation energy</div>
+                <div class="report-item" contenteditable="true"><strong>Concerns:</strong> Potential AI photo red flags
+                </div>
+                <div class="report-item" contenteditable="true"><strong>Notes:</strong> "Sartre with a glass of
+                    red wine"</div>
                 <div class="stars">★★★★</div>
             </div>
 
             <div class="report seed-3">
-                <h3><span class="seed seed-3">#3</span> <span contenteditable="true" class="editable-name">Carl the DJ</span></h3>
-                <div class="report-item" contenteditable="true"><strong>Strengths:</strong> Good hairline, nice clothes, cute side profile</div>
-                <div class="report-item" contenteditable="true"><strong>Concerns:</strong> DJ lifestyle, suspicious Bass Pro Shop photo</div>
-                <div class="report-item" contenteditable="true"><strong>Status:</strong> Needs to prove himself in the tournament</div>
+                <h3><span class="seed seed-3">#3</span> <span contenteditable="true" class="editable-name">Carl the
+                        DJ</span></h3>
+                <div class="report-item" contenteditable="true"><strong>Strengths:</strong> Good hairline, nice clothes,
+                    cute side profile</div>
+                <div class="report-item" contenteditable="true"><strong>Concerns:</strong> DJ lifestyle, suspicious Bass
+                    Pro Shop photo</div>
+                <div class="report-item" contenteditable="true"><strong>Notes:</strong> Needs to prove himself in the
+                    tournament</div>
                 <div class="stars">★★★</div>
             </div>
 
             <div class="report seed-4">
-                <h3><span class="seed seed-4">#4</span> <span contenteditable="true" class="editable-name">Mystery Person</span></h3>
-                <div class="report-item" contenteditable="true"><strong>Status:</strong> TBD - Could upset the entire bracket</div>
-                <div class="report-item" contenteditable="true"><strong>Purpose:</strong> Keeps options open, prevents tunnel vision</div>
-                <div class="report-item" contenteditable="true"><strong>Note:</strong> Sometimes the best matches come from unexpected places</div>
+                <h3><span class="seed seed-4">#4</span> <span contenteditable="true" class="editable-name">Mystery
+                        Person</span></h3>
+                <div class="report-item" contenteditable="true"><strong>Strengths:</strong> Unknown potential, keeps
+                    options open</div>
+                <div class="report-item" contenteditable="true"><strong>Concerns:</strong> Could upset the entire
+                    bracket</div>
+                <div class="report-item" contenteditable="true"><strong>Notes:</strong> Sometimes the best matches come
+                    from unexpected places</div>
                 <div class="stars">★★★</div>
             </div>
         </div>
@@ -571,39 +581,39 @@
             if (document.activeElement.isContentEditable) {
                 return;
             }
-            
+
             const matchup = document.getElementById(matchupId);
             const contestants = matchup.querySelectorAll('.contestant');
-            
+
             // Remove selection from all contestants in this matchup
             contestants.forEach(c => c.classList.remove('selected', 'winner'));
-            
+
             // Mark this contestant as winner
             element.classList.add('selected', 'winner');
-            
+
             // Get the winner info
             const seedElement = element.querySelector('.seed');
             const nameElement = element.querySelector('.name');
             const editableNameElement = element.querySelector('.editable-name');
             const statsElement = element.querySelector('.stats');
-            
+
             const winnerName = editableNameElement ? editableNameElement.textContent.trim() : nameElement.textContent.replace(seedElement.textContent, '').trim();
             const winnerStats = statsElement ? statsElement.textContent : '';
             const winnerSeed = seedElement.textContent;
-            
+
             // Update the finalist
             const finalistElement = document.getElementById(finalistId);
             finalistElement.querySelector('.name').innerHTML = `${seedElement.outerHTML}${winnerName}`;
             finalistElement.querySelector('.stats').textContent = winnerStats;
             finalistElement.onclick = () => selectChampion(finalistElement, winnerName);
-            
+
             // Store in state
             bracketState[finalistId] = winnerName;
-            
+
             // Check if we can enable finals
             if (bracketState.finalist1 && bracketState.finalist2) {
-                document.getElementById('finals').style.borderColor = '#8b6f47';
-                document.getElementById('finals').style.borderWidth = '2px';
+                // document.getElementById('finals').style.borderColor = '#8b6f47';
+                // document.getElementById('finals').style.borderWidth = '2px';
             }
         }
 
@@ -612,22 +622,22 @@
                 alert('Complete the semifinals first!');
                 return;
             }
-            
+
             const finalsMatchup = document.getElementById('finals');
             const finalists = finalsMatchup.querySelectorAll('.contestant');
-            
+
             finalists.forEach(f => f.classList.remove('selected', 'winner'));
             element.classList.add('selected', 'winner');
-            
+
             bracketState.champion = name;
-            
+
             // Update championship display
             const championElement = document.getElementById('championName');
             championElement.textContent = `${name}`;
-            
+
             // Add celebration effect
             const championship = document.getElementById('champion');
-            championship.style.background = '#faf6ed';
+            // championship.style.background = '#faf6ed';
         }
 
         function createConfetti() {
@@ -641,28 +651,28 @@
                 finalist2: null,
                 champion: null
             };
-            
+
             // Reset all contestants
             document.querySelectorAll('.contestant').forEach(c => {
                 c.classList.remove('selected', 'winner');
             });
-            
+
             // Reset finalists
             document.getElementById('finalist1').querySelector('.name').textContent = 'TBD';
             document.getElementById('finalist1').querySelector('.stats').textContent = 'Awaiting winner...';
             document.getElementById('finalist1').onclick = null;
-            
+
             document.getElementById('finalist2').querySelector('.name').textContent = 'TBD';
             document.getElementById('finalist2').querySelector('.stats').textContent = 'Awaiting winner...';
             document.getElementById('finalist2').onclick = null;
-            
+
             // Reset championship
             document.getElementById('championName').textContent = 'The Winner';
-            document.getElementById('champion').style.background = '#fefdfb';
-            document.getElementById('finals').style.borderColor = '#8b6f47';
-            document.getElementById('finals').style.borderWidth = '1px';
-            document.getElementById('finals').style.background = '';
-            document.getElementById('finals').style.borderColor = '';
+            // document.getElementById('champion').style.background = '#fefdfb';
+            // document.getElementById('finals').style.borderColor = '#8b6f47';
+            // document.getElementById('finals').style.borderWidth = '1px';
+            // document.getElementById('finals').style.background = '';
+            // document.getElementById('finals').style.borderColor = '';
         }
 
         // Add keyboard animation
@@ -671,6 +681,56 @@
                 resetBracket();
             }
         });
+
+        // Save all editable content to localStorage
+        function saveData() {
+            const data = {
+                bracketState: bracketState,
+                editableContent: {}
+            };
+
+            // Save all contenteditable elements
+            document.querySelectorAll('[contenteditable="true"]').forEach((el, index) => {
+                data.editableContent[index] = el.innerHTML;
+            });
+
+            localStorage.setItem('romanceBracket', JSON.stringify(data));
+        }
+
+        // Load data from localStorage
+        function loadData() {
+            const saved = localStorage.getItem('romanceBracket');
+            if (saved) {
+                const data = JSON.parse(saved);
+
+                // Restore bracket state
+                bracketState = data.bracketState;
+
+                // Restore editable content
+                document.querySelectorAll('[contenteditable="true"]').forEach((el, index) => {
+                    if (data.editableContent[index]) {
+                        el.innerHTML = data.editableContent[index];
+                    }
+                });
+
+                // Restore visual state of winners
+                document.querySelectorAll('.contestant').forEach(c => {
+                    if (c.classList.contains('winner')) {
+                        // Re-apply winner styles
+                    }
+                });
+            }
+        }
+
+        // Auto-save whenever content changes
+        document.addEventListener('input', saveData);
+        document.addEventListener('click', () => {
+            setTimeout(saveData, 100);
+        });
+
+        // Load data when page loads
+        window.addEventListener('load', loadData);
     </script>
 </body>
+
 </html>
