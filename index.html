@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dating Championship Bracket 2026</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'EB Garamond', 'Garamond', serif;
+            background: #d4b896;
+            min-height: 100vh;
+            padding: 40px 20px;
+            color: #2a1810;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            color: #2a1810;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            font-family: 'Crimson Text', serif;
+            font-size: 2.8em;
+            margin-bottom: 8px;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .subtitle {
+            font-size: 1.1em;
+            opacity: 0.8;
+            font-style: italic;
+            letter-spacing: 0.5px;
+        }
+
+        .bracket-container {
+            background: #f9f3e8;
+            padding: 40px 30px;
+            margin-bottom: 30px;
+            border: 3px double #8b6f47;
+            box-shadow: 
+                0 4px 6px rgba(0,0,0,0.1),
+                inset 0 0 100px rgba(0,0,0,0.02);
+            position: relative;
+        }
+
+        .bracket-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 24px,
+                    rgba(139, 111, 71, 0.03) 24px,
+                    rgba(139, 111, 71, 0.03) 25px
+                );
+            pointer-events: none;
+        }
+
+        .bracket {
+            display: flex;
+            justify-content: space-between;
+            max-width: 1100px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .round {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            flex: 1;
+            position: relative;
+        }
+
+        .round h3 {
+            text-align: center;
+            color: #2a1810;
+            margin-bottom: 25px;
+            font-size: 0.9em;
+            text-transform: lowercase;
+            letter-spacing: 3px;
+            font-weight: 500;
+            border-bottom: 1px solid #2a1810;
+            padding-bottom: 8px;
+            font-style: italic;
+        }
+
+        .matchup-wrapper {
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        .matchup {
+            background: #fefdfb;
+            border: 1px solid #8b6f47;
+            flex: 1;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+            box-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .matchup:hover {
+            box-shadow: 3px 3px 6px rgba(0,0,0,0.15);
+        }
+
+        .contestant {
+            background: #fefdfb;
+            padding: 14px 12px;
+            border-bottom: 1px dashed #c4b5a0;
+            transition: all 0.2s ease;
+            position: relative;
+            font-size: 0.95em;
+        }
+
+        .contestant::before {
+            content: '☐';
+            position: absolute;
+            left: -18px;
+            top: 14px;
+            font-size: 1.1em;
+            color: #8b6f47;
+        }
+
+        .contestant.winner::before {
+            content: '☑';
+            color: #8b6f47;
+        }
+
+        .contestant:last-child {
+            border-bottom: none;
+        }
+
+        .contestant.selected {
+            background: #fefdfb;
+        }
+
+        .contestant.winner {
+            background: #faf6ed;
+        }
+
+        .seed {
+            display: inline-block;
+            background: none;
+            color: #2a1810;
+            padding: 0;
+            font-size: 0.85em;
+            font-weight: 500;
+            margin-right: 8px;
+            font-family: 'EB Garamond', serif;
+            border: 1px solid #2a1810;
+            padding: 2px 6px;
+        }
+
+        .seed.seed-1 { border-color: #8b6f47; background: rgba(139, 111, 71, 0.1); }
+        .seed.seed-2 { border-color: #8b6f47; background: rgba(139, 111, 71, 0.1); }
+        .seed.seed-3 { border-color: #8b6f47; background: rgba(139, 111, 71, 0.1); }
+        .seed.seed-4 { border-color: #8b6f47; background: rgba(139, 111, 71, 0.1); }
+
+        .name {
+            font-weight: 600;
+            font-size: 1em;
+            margin-bottom: 3px;
+            color: #2a1810;
+            letter-spacing: 0.3px;
+        }
+
+        .stats {
+            font-size: 0.88em;
+            color: #5a4a3a;
+            margin-top: 3px;
+            font-family: 'EB Garamond', serif;
+            font-style: italic;
+        }
+
+        .connector-line {
+            width: 40px;
+            height: 1px;
+            background: #8b6f47;
+            position: absolute;
+        }
+
+        .bracket-line {
+            position: absolute;
+            background: #8b6f47;
+        }
+
+        .horizontal-line {
+            height: 1px;
+        }
+
+        .vertical-line {
+            width: 1px;
+        }
+
+        .finals-round {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            flex: 0.8;
+        }
+
+        .finals-matchup {
+            margin-bottom: 25px;
+        }
+
+        .championship {
+            background: #fefdfb;
+            border: 2px double #8b6f47;
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+            font-weight: 600;
+            color: #2a1810;
+            letter-spacing: 1px;
+            box-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            position: relative;
+            font-family: 'Crimson Text', serif;
+        }
+
+        .championship::before {
+            content: '🌿';
+            position: absolute;
+            top: 8px;
+            left: 12px;
+            font-size: 0.6em;
+            opacity: 0.5;
+        }
+
+        .championship::after {
+            content: 'approved';
+            position: absolute;
+            top: 8px;
+            right: 12px;
+            font-size: 0.35em;
+            color: #8b6f47;
+            transform: rotate(15deg);
+            opacity: 0.5;
+            border: 1px solid #8b6f47;
+            padding: 3px 10px;
+            letter-spacing: 2px;
+            font-style: italic;
+            font-weight: 400;
+        }
+
+        .scouting-reports {
+            background: #f9f3e8;
+            padding: 35px;
+            border: 3px double #8b6f47;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .scouting-reports h2 {
+            color: #2a1810;
+            margin-bottom: 25px;
+            text-align: center;
+            font-size: 2em;
+            font-weight: 600;
+            letter-spacing: 2px;
+            font-family: 'Crimson Text', serif;
+            border-bottom: 2px solid #2a1810;
+            padding-bottom: 10px;
+        }
+
+        .report {
+            background: #fefdfb;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid #8b6f47;
+            box-shadow: 2px 2px 4px rgba(0,0,0,0.08);
+            position: relative;
+        }
+
+        .report::before {
+            content: '🌿 call no.';
+            position: absolute;
+            top: -8px;
+            left: 12px;
+            background: #f9f3e8;
+            padding: 0 6px;
+            font-size: 0.7em;
+            color: #8b6f47;
+            letter-spacing: 1px;
+            font-style: italic;
+        }
+
+        .report.seed-1::before { content: '🌿 call no. 001'; }
+        .report.seed-2::before { content: '🌿 call no. 002'; }
+        .report.seed-3::before { content: '🌿 call no. 003'; }
+        .report.seed-4::before { content: '🌿 call no. 004'; }
+
+        .report h3 {
+            margin-bottom: 12px;
+            font-size: 1.1em;
+            font-weight: 600;
+            color: #2a1810;
+            letter-spacing: 0.5px;
+            font-family: 'Crimson Text', serif;
+        }
+
+        .report-item {
+            margin: 8px 0;
+            padding-left: 15px;
+            position: relative;
+            font-family: 'EB Garamond', serif;
+            line-height: 1.6;
+            font-size: 0.95em;
+        }
+
+        .report-item:before {
+            content: "—";
+            position: absolute;
+            left: 0;
+            color: #2a1810;
+        }
+
+        .stars {
+            color: #8b6f47;
+            font-size: 0.95em;
+            margin-top: 10px;
+            letter-spacing: 3px;
+            font-weight: 400;
+        }
+
+        .reset-btn {
+            display: block;
+            margin: 25px auto;
+            padding: 10px 30px;
+            background: #fefdfb;
+            color: #2a1810;
+            border: 2px solid #2a1810;
+            font-size: 0.9em;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: 'EB Garamond', serif;
+            letter-spacing: 2px;
+            text-transform: lowercase;
+            box-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .reset-btn:hover {
+            background: #2a1810;
+            color: #fefdfb;
+            box-shadow: 3px 3px 6px rgba(0,0,0,0.2);
+        }
+
+        @media (max-width: 1024px) {
+            .bracket {
+                flex-direction: column;
+                gap: 40px;
+            }
+
+            .round {
+                gap: 20px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            .matchup-wrapper {
+                margin-bottom: 20px;
+            }
+        }
+
+        .instructions {
+            text-align: center;
+            color: #2a1810;
+            margin-bottom: 25px;
+            font-size: 0.85em;
+            opacity: 0.8;
+            font-style: italic;
+            letter-spacing: 0.5px;
+        }
+
+        .notes-box {
+            background: #fefdfb;
+            padding: 20px;
+            font-size: 0.95em;
+            line-height: 1.7;
+            color: #2a1810;
+            border: 1px solid #8b6f47;
+            margin-top: 25px;
+            box-shadow: 2px 2px 4px rgba(0,0,0,0.08);
+            font-family: 'EB Garamond', serif;
+            position: relative;
+        }
+
+        .notes-box::before {
+            content: '🌿';
+            position: absolute;
+            top: -8px;
+            left: 12px;
+            background: #f9f3e8;
+            padding: 0 4px;
+            font-size: 1.2em;
+        }
+
+        .notes-box p {
+            margin-bottom: 10px;
+        }
+
+        .notes-box strong {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 1em;
+            text-transform: lowercase;
+            letter-spacing: 1px;
+            color: #2a1810;
+            font-weight: 600;
+            font-style: italic;
+            font-family: 'Crimson Text', serif;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>The Romance Bracket</h1>
+            <p class="subtitle">a considered approach to matters of the heart</p>
+        </header>
+
+        <p class="instructions">
+            tap a card to move forward with your choice
+        </p>
+
+        <div class="bracket-container">
+            <button class="reset-btn" onclick="resetBracket()">reset bracket</button>
+            
+            <div class="bracket">
+                <!-- LEFT SEMIFINALS -->
+                <div class="round">
+                    <h3>Round 1</h3>
+                    <div class="matchup-wrapper">
+                        <div class="matchup" id="semi1">
+                            <div class="contestant" data-winner="finalist1" onclick="selectWinner(this, 'semi1', 'finalist1')">
+                                <div class="name">
+                                    <span class="seed seed-1">#1</span>
+                                    Funny Instagram Guy
+                                </div>
+                                <div class="stats">Heavy Favorite | Self-aware humor</div>
+                            </div>
+                            <div class="contestant" data-winner="finalist1" onclick="selectWinner(this, 'semi1', 'finalist1')">
+                                <div class="name">
+                                    <span class="seed seed-4">#4</span>
+                                    Mystery Person
+                                </div>
+                                <div class="stats">Wild Card | Unknown potential</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="matchup-wrapper">
+                        <div class="matchup" id="semi2">
+                            <div class="contestant" data-winner="finalist2" onclick="selectWinner(this, 'semi2', 'finalist2')">
+                                <div class="name">
+                                    <span class="seed seed-2">#2</span>
+                                    Philosophy Guy
+                                </div>
+                                <div class="stats">Strong Contender | Clever banter</div>
+                            </div>
+                            <div class="contestant" data-winner="finalist2" onclick="selectWinner(this, 'semi2', 'finalist2')">
+                                <div class="name">
+                                    <span class="seed seed-3">#3</span>
+                                    Carl (The DJ)
+                                </div>
+                                <div class="stats">Dark Horse | Good hairline</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FINALS -->
+                <div class="finals-round">
+                    <h3>Finals</h3>
+                    <div class="finals-matchup">
+                        <div class="matchup" id="finals">
+                            <div class="contestant" id="finalist1" data-winner="champion">
+                                <div class="name">TBD</div>
+                                <div class="stats">Awaiting winner...</div>
+                            </div>
+                            <div class="contestant" id="finalist2" data-winner="champion">
+                                <div class="name">TBD</div>
+                                <div class="stats">Awaiting winner...</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="championship" id="champion">
+                        <span id="championName">The Winner</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="notes-box">
+                <strong>Approach</strong>
+                <p>Protecting your favorite from early comparison while keeping space for the unexpected. Conversation chemistry earned its ranking. Attraction needs more than surface appeal.</p>
+            </div>
+        </div>
+
+        <div class="scouting-reports">
+            <h2>Dossier</h2>
+            
+            <div class="report seed-1">
+                <h3><span class="seed seed-1">#1</span> Funny Instagram Guy</h3>
+                <div class="report-item"><strong>Strengths:</strong> Self-aware humor, genuine personality, family-oriented</div>
+                <div class="report-item"><strong>Signature Move:</strong> "Negotiable grandchildren quantity at Sunday lunch"</div>
+                <div class="report-item"><strong>X-Factor:</strong> Different hair stands out from the pack</div>
+                <div class="stars">★★★★★</div>
+            </div>
+
+            <div class="report seed-2">
+                <h3><span class="seed seed-2">#2</span> Philosophy Guy</h3>
+                <div class="report-item"><strong>Strengths:</strong> Clever banter, good style, European vacation energy</div>
+                <div class="report-item"><strong>Concerns:</strong> Potential AI photo red flags</div>
+                <div class="report-item"><strong>Signature Move:</strong> "Sartre with a glass of red wine"</div>
+                <div class="stars">★★★★</div>
+            </div>
+
+            <div class="report seed-3">
+                <h3><span class="seed seed-3">#3</span> Carl the DJ</h3>
+                <div class="report-item"><strong>Strengths:</strong> Good hairline, nice clothes, cute side profile</div>
+                <div class="report-item"><strong>Concerns:</strong> DJ lifestyle, suspicious Bass Pro Shop photo</div>
+                <div class="report-item"><strong>Status:</strong> Needs to prove himself in the tournament</div>
+                <div class="stars">★★★</div>
+            </div>
+
+            <div class="report seed-4">
+                <h3><span class="seed seed-4">#4</span> Mystery Person</h3>
+                <div class="report-item"><strong>Status:</strong> TBD - Could upset the entire bracket</div>
+                <div class="report-item"><strong>Purpose:</strong> Keeps options open, prevents tunnel vision</div>
+                <div class="report-item"><strong>Note:</strong> Sometimes the best matches come from unexpected places</div>
+                <div class="stars">★★★</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let bracketState = {
+            finalist1: null,
+            finalist2: null,
+            champion: null
+        };
+
+        function selectWinner(element, matchupId, finalistId) {
+            const matchup = document.getElementById(matchupId);
+            const contestants = matchup.querySelectorAll('.contestant');
+            
+            // Remove selection from all contestants in this matchup
+            contestants.forEach(c => c.classList.remove('selected', 'winner'));
+            
+            // Mark this contestant as winner
+            element.classList.add('selected', 'winner');
+            
+            // Get the winner info
+            const seedElement = element.querySelector('.seed');
+            const nameElement = element.querySelector('.name');
+            const statsElement = element.querySelector('.stats');
+            
+            const winnerName = nameElement.textContent.replace(seedElement.textContent, '').trim();
+            const winnerStats = statsElement ? statsElement.textContent : '';
+            const winnerSeed = seedElement.textContent;
+            
+            // Update the finalist
+            const finalistElement = document.getElementById(finalistId);
+            finalistElement.querySelector('.name').innerHTML = `${seedElement.outerHTML}${winnerName}`;
+            finalistElement.querySelector('.stats').textContent = winnerStats;
+            finalistElement.onclick = () => selectChampion(finalistElement, winnerName);
+            
+            // Store in state
+            bracketState[finalistId] = winnerName;
+            
+            // Check if we can enable finals
+            if (bracketState.finalist1 && bracketState.finalist2) {
+                document.getElementById('finals').style.borderColor = '#8b6f47';
+                document.getElementById('finals').style.borderWidth = '2px';
+            }
+        }
+
+        function selectChampion(element, name) {
+            if (!bracketState.finalist1 || !bracketState.finalist2) {
+                alert('Complete the semifinals first!');
+                return;
+            }
+            
+            const finalsMatchup = document.getElementById('finals');
+            const finalists = finalsMatchup.querySelectorAll('.contestant');
+            
+            finalists.forEach(f => f.classList.remove('selected', 'winner'));
+            element.classList.add('selected', 'winner');
+            
+            bracketState.champion = name;
+            
+            // Update championship display
+            const championElement = document.getElementById('championName');
+            championElement.textContent = `${name}`;
+            
+            // Add celebration effect
+            const championship = document.getElementById('champion');
+            championship.style.background = '#faf6ed';
+        }
+
+        function createConfetti() {
+            // Removed confetti effect for cleaner aesthetic
+        }
+
+        function resetBracket() {
+            // Reset state
+            bracketState = {
+                finalist1: null,
+                finalist2: null,
+                champion: null
+            };
+            
+            // Reset all contestants
+            document.querySelectorAll('.contestant').forEach(c => {
+                c.classList.remove('selected', 'winner');
+            });
+            
+            // Reset finalists
+            document.getElementById('finalist1').querySelector('.name').textContent = 'TBD';
+            document.getElementById('finalist1').querySelector('.stats').textContent = 'Awaiting winner...';
+            document.getElementById('finalist1').onclick = null;
+            
+            document.getElementById('finalist2').querySelector('.name').textContent = 'TBD';
+            document.getElementById('finalist2').querySelector('.stats').textContent = 'Awaiting winner...';
+            document.getElementById('finalist2').onclick = null;
+            
+            // Reset championship
+            document.getElementById('championName').textContent = 'The Winner';
+            document.getElementById('champion').style.background = '#fefdfb';
+            document.getElementById('finals').style.borderColor = '#8b6f47';
+            document.getElementById('finals').style.borderWidth = '1px';
+            document.getElementById('finals').style.background = '';
+            document.getElementById('finals').style.borderColor = '';
+        }
+
+        // Add keyboard animation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'r' || e.key === 'R') {
+                resetBracket();
+            }
+        });
+    </script>
+</body>
+</html>
