@@ -570,170 +570,117 @@
         </div>
     </div>
 
-    <script>
-        let bracketState = {
+   <script>
+    let bracketState = {
+        finalist1: null,
+        finalist2: null,
+        champion: null
+    };
+
+    function selectWinner(element, matchupId, finalistId) {
+        if (document.activeElement.isContentEditable) {
+            return;
+        }
+
+        const matchup = document.getElementById(matchupId);
+        const contestants = matchup.querySelectorAll('.contestant');
+
+        contestants.forEach(c => c.classList.remove('selected', 'winner'));
+        element.classList.add('selected', 'winner');
+
+        const seedElement = element.querySelector('.seed');
+        const nameElement = element.querySelector('.name');
+        const editableNameElement = element.querySelector('.editable-name');
+        const statsElement = element.querySelector('.stats');
+
+        const winnerName = editableNameElement ? editableNameElement.textContent.trim() : nameElement.textContent.replace(seedElement.textContent, '').trim();
+        const winnerStats = statsElement ? statsElement.textContent : '';
+        const winnerSeed = seedElement.textContent;
+
+        const finalistElement = document.getElementById(finalistId);
+        finalistElement.querySelector('.name').innerHTML = `${seedElement.outerHTML}${winnerName}`;
+        finalistElement.querySelector('.stats').textContent = winnerStats;
+        finalistElement.onclick = () => selectChampion(finalistElement, winnerName);
+
+        bracketState[finalistId] = winnerName;
+
+        if (bracketState.finalist1 && bracketState.finalist2) {
+            // Optional: Style updates for finals
+        }
+    }
+
+    function selectChampion(element, name) {
+        if (!bracketState.finalist1 || !bracketState.finalist2) {
+            alert('Complete the semifinals first!');
+            return;
+        }
+
+        const finalsMatchup = document.getElementById('finals');
+        const finalists = finalsMatchup.querySelectorAll('.contestant');
+
+        finalists.forEach(f => f.classList.remove('selected', 'winner'));
+        element.classList.add('selected', 'winner');
+
+        bracketState.champion = name;
+        document.getElementById('championName').textContent = name;
+    }
+
+    function resetBracket() {
+        bracketState = {
             finalist1: null,
             finalist2: null,
             champion: null
         };
 
-        function selectWinner(element, matchupId, finalistId) {
-            // Don't select if user is editing any text
-            if (document.activeElement.isContentEditable) {
-                return;
-            }
-
-            const matchup = document.getElementById(matchupId);
-            const contestants = matchup.querySelectorAll('.contestant');
-
-            // Remove selection from all contestants in this matchup
-            contestants.forEach(c => c.classList.remove('selected', 'winner'));
-
-            // Mark this contestant as winner
-            element.classList.add('selected', 'winner');
-
-            // Get the winner info
-            const seedElement = element.querySelector('.seed');
-            const nameElement = element.querySelector('.name');
-            const editableNameElement = element.querySelector('.editable-name');
-            const statsElement = element.querySelector('.stats');
-
-            const winnerName = editableNameElement ? editableNameElement.textContent.trim() : nameElement.textContent.replace(seedElement.textContent, '').trim();
-            const winnerStats = statsElement ? statsElement.textContent : '';
-            const winnerSeed = seedElement.textContent;
-
-            // Update the finalist
-            const finalistElement = document.getElementById(finalistId);
-            finalistElement.querySelector('.name').innerHTML = `${seedElement.outerHTML}${winnerName}`;
-            finalistElement.querySelector('.stats').textContent = winnerStats;
-            finalistElement.onclick = () => selectChampion(finalistElement, winnerName);
-
-            // Store in state
-            bracketState[finalistId] = winnerName;
-
-            // Check if we can enable finals
-            if (bracketState.finalist1 && bracketState.finalist2) {
-                // document.getElementById('finals').style.borderColor = '#8b6f47';
-                // document.getElementById('finals').style.borderWidth = '2px';
-            }
-        }
-
-        function selectChampion(element, name) {
-            if (!bracketState.finalist1 || !bracketState.finalist2) {
-                alert('Complete the semifinals first!');
-                return;
-            }
-
-            const finalsMatchup = document.getElementById('finals');
-            const finalists = finalsMatchup.querySelectorAll('.contestant');
-
-            finalists.forEach(f => f.classList.remove('selected', 'winner'));
-            element.classList.add('selected', 'winner');
-
-            bracketState.champion = name;
-
-            // Update championship display
-            const championElement = document.getElementById('championName');
-            championElement.textContent = `${name}`;
-
-            // Add celebration effect
-            const championship = document.getElementById('champion');
-            // championship.style.background = '#faf6ed';
-        }
-
-        function createConfetti() {
-            // Removed confetti effect for cleaner aesthetic
-        }
-
-        function resetBracket() {
-            // Reset state
-            bracketState = {
-                finalist1: null,
-                finalist2: null,
-                champion: null
-            };
-
-            // Reset all contestants
-            document.querySelectorAll('.contestant').forEach(c => {
-                c.classList.remove('selected', 'winner');
-            });
-
-            // Reset finalists
-            document.getElementById('finalist1').querySelector('.name').textContent = 'TBD';
-            document.getElementById('finalist1').querySelector('.stats').textContent = 'Awaiting winner...';
-            document.getElementById('finalist1').onclick = null;
-
-            document.getElementById('finalist2').querySelector('.name').textContent = 'TBD';
-            document.getElementById('finalist2').querySelector('.stats').textContent = 'Awaiting winner...';
-            document.getElementById('finalist2').onclick = null;
-
-            // Reset championship
-            document.getElementById('championName').textContent = 'The Winner';
-            // document.getElementById('champion').style.background = '#fefdfb';
-            // document.getElementById('finals').style.borderColor = '#8b6f47';
-            // document.getElementById('finals').style.borderWidth = '1px';
-            // document.getElementById('finals').style.background = '';
-            // document.getElementById('finals').style.borderColor = '';
-        }
-
-        // Add keyboard animation
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'r' || e.key === 'R') {
-                resetBracket();
-            }
-        });
-// Save all editable content to localStorage
-        function saveData() {
-            const data = {
-                bracketState: bracketState,
-                editableContent: {}
-            };
-
-            // Save all contenteditable elements
-            document.querySelectorAll('[contenteditable="true"]').forEach((el, index) => {
-                data.editableContent[index] = el.innerHTML;
-            });
-
-            localStorage.setItem('romanceBracket', JSON.stringify(data));
-        }
-
-function loadData() {
-    const saved = localStorage.getItem('romanceBracket');
-    if (saved) {
-        const data = JSON.parse(saved);
-
-        // Restore bracket state
-        bracketState = data.bracketState;
-
-        // Restore editable content
-        document.querySelectorAll('[contenteditable="true"]').forEach((el, index) => {
-            if (data.editableContent[index]) {
-                el.innerHTML = data.editableContent[index];
-            }
-        });
-
-        // Restore visual state of winners
         document.querySelectorAll('.contestant').forEach(c => {
-            if (c.classList.contains('winner')) {
-                // Re-apply winner styles
-            }
+            c.classList.remove('selected', 'winner');
         });
+
+        document.getElementById('finalist1').querySelector('.name').textContent = 'TBD';
+        document.getElementById('finalist1').querySelector('.stats').textContent = 'Awaiting winner...';
+        document.getElementById('finalist1').onclick = null;
+
+        document.getElementById('finalist2').querySelector('.name').textContent = 'TBD';
+        document.getElementById('finalist2').querySelector('.stats').textContent = 'Awaiting winner...';
+        document.getElementById('finalist2').onclick = null;
+
+        document.getElementById('championName').textContent = 'The Winner';
     }
-}
 
-
-        // Auto-save whenever content changes
-        document.addEventListener('input', saveData);
-        document.addEventListener('click', () => {
-            setTimeout(saveData, 100);
+    function saveData() {
+        const data = {
+            bracketState: bracketState,
+            editableContent: {}
+        };
+        document.querySelectorAll('[contenteditable="true"]').forEach((el, index) => {
+            data.editableContent[index] = el.innerHTML;
         });
+        localStorage.setItem('romanceBracket', JSON.stringify(data));
+    }
 
-        // Load data when page loads
-        window.addEventListener('load', loadData);
+    function loadData() {
+        const saved = localStorage.getItem('romanceBracket');
+        if (saved) {
+            const data = JSON.parse(saved);
+            bracketState = data.bracketState;
+            document.querySelectorAll('[contenteditable="true"]').forEach((el, index) => {
+                if (data.editableContent[index]) {
+                    el.innerHTML = data.editableContent[index];
+                }
+            });
+        }
+    }
 
-        
-        
-    </script>
+    // Auto-save on input or click
+    document.addEventListener('input', saveData);
+    document.addEventListener('click', () => {
+        setTimeout(saveData, 100);
+    });
+
+    // Load data when the page loads
+    window.addEventListener('load', loadData);
+</script>
+
 </body>
 
 </html>
